@@ -9,6 +9,10 @@ const customTheme = {
       },
     },
   },
+  fonts: {
+    heading: "Roboto",
+    body: "Roboto",
+  },
   colors: {
     gray: {
       "50": "#EEEEF2",
