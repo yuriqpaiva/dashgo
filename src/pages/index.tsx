@@ -1,10 +1,4 @@
-import {
-  Flex,
-  Button,
-  Stack,
-  FormLabel,
-  FormControl, // Use to group FormLabel and Input components
-} from "@chakra-ui/react";
+import { Flex, Button, Stack } from "@chakra-ui/react";
 import { Input } from "../components/Form/Input";
 
 export default function SignIn() {
