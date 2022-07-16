@@ -31,6 +31,7 @@ export default function SignIn() {
     <Flex w="100vw" h="100vh" align="center" justify="center">
       <Flex
         as="form"
+        noValidate
         width="100%"
         maxWidth="360"
         bg="gray.800"
