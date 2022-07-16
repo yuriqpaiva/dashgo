@@ -14,7 +14,6 @@ export function ActiveLink({
   ...rest
 }: ActiveLinkProps) {
   const { asPath } = useRouter();
-  console.log(asPath);
 
   let isActive = false;
 
