@@ -5,6 +5,7 @@ import {
   Flex,
   Heading,
   Icon,
+  Spinner,
   Table,
   Tbody,
   Td,
@@ -15,20 +16,23 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 import Link from "next/link";
-import { useEffect } from "react";
-import { RiAddLine, RiPencilLine } from "react-icons/ri";
+import { RiAddLine } from "react-icons/ri";
 import { Header } from "../../components/Header";
 import { Pagination } from "../../components/Pagination";
 import { Sidebar } from "../../components/Sidebar";
+import { useQuery } from "react-query";
 
 export default function UserList() {
-  const isWideVersion = useBreakpointValue({ base: false, lg: true });
+  const { data, isLoading, error } = useQuery("users", async () => {
+    const response = await fetch("http://localhost:3000/api/users");
+    const data = response.json();
 
-  useEffect(() => {
-    fetch("http://localhost:3000/api/users").then((response) =>
-      response.json().then((data) => console.log(data))
-    );
-  }, []);
+    return data;
+  });
+
+  // console.log(query);
+
+  const isWideVersion = useBreakpointValue({ base: false, lg: true });
 
   return (
     <Box>
@@ -60,65 +64,75 @@ export default function UserList() {
               </Button>
             </Link>
           </Flex>
-          <Table colorScheme="whiteAlpha" width={80} w="100%">
-            <Thead>
-              <Tr>
-                <Th px={["4", "4", "6"]} color="gray.300" w="8">
-                  <Checkbox colorScheme="pink" />
-                </Th>
-                <Th>Usuário</Th>
-                {isWideVersion && <Th>Data de cadastro</Th>}
-              </Tr>
-            </Thead>
-            <Tbody>
-              <Tr>
-                <Td px={["4", "4", "6"]}>
-                  <Checkbox colorScheme="pink" />
-                </Td>
-                <Td>
-                  <Box>
-                    <Text fontWeight="bold">Yuri Paiva</Text>
-                    <Text fontSize="sm" color="gray.300">
-                      yuriqpaiva@gmail.com
-                    </Text>
-                  </Box>
-                </Td>
-                {isWideVersion && <Td>04 de Abril, 1999</Td>}
-              </Tr>
+          {isLoading ? (
+            <Flex justify="center">
+              <Spinner />
+            </Flex>
+          ) : error ? (
+            <Flex justify="center">Falha ao obter dados dos usuários</Flex>
+          ) : (
+            <>
+              <Table colorScheme="whiteAlpha" width={80} w="100%">
+                <Thead>
+                  <Tr>
+                    <Th px={["4", "4", "6"]} color="gray.300" w="8">
+                      <Checkbox colorScheme="pink" />
+                    </Th>
+                    <Th>Usuário</Th>
+                    {isWideVersion && <Th>Data de cadastro</Th>}
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  <Tr>
+                    <Td px={["4", "4", "6"]}>
+                      <Checkbox colorScheme="pink" />
+                    </Td>
+                    <Td>
+                      <Box>
+                        <Text fontWeight="bold">Yuri Paiva</Text>
+                        <Text fontSize="sm" color="gray.300">
+                          yuriqpaiva@gmail.com
+                        </Text>
+                      </Box>
+                    </Td>
+                    {isWideVersion && <Td>04 de Abril, 1999</Td>}
+                  </Tr>
 
-              <Tr>
-                <Td px={["4", "4", "6"]}>
-                  <Checkbox colorScheme="pink" />
-                </Td>
-                <Td>
-                  <Box>
-                    <Text fontWeight="bold">Yuri Paiva</Text>
-                    <Text fontSize="sm" color="gray.300">
-                      yuriqpaiva@gmail.com
-                    </Text>
-                  </Box>
-                </Td>
-                {isWideVersion && <Td>04 de Abril, 1999</Td>}
-              </Tr>
+                  <Tr>
+                    <Td px={["4", "4", "6"]}>
+                      <Checkbox colorScheme="pink" />
+                    </Td>
+                    <Td>
+                      <Box>
+                        <Text fontWeight="bold">Yuri Paiva</Text>
+                        <Text fontSize="sm" color="gray.300">
+                          yuriqpaiva@gmail.com
+                        </Text>
+                      </Box>
+                    </Td>
+                    {isWideVersion && <Td>04 de Abril, 1999</Td>}
+                  </Tr>
 
-              <Tr>
-                <Td px={["4", "4", "6"]}>
-                  <Checkbox colorScheme="pink" />
-                </Td>
-                <Td>
-                  <Box>
-                    <Text fontWeight="bold">Yuri Paiva</Text>
-                    <Text fontSize="sm" color="gray.300">
-                      yuriqpaiva@gmail.com
-                    </Text>
-                  </Box>
-                </Td>
-                {isWideVersion && <Td>04 de Abril, 1999</Td>}
-              </Tr>
-            </Tbody>
-          </Table>
+                  <Tr>
+                    <Td px={["4", "4", "6"]}>
+                      <Checkbox colorScheme="pink" />
+                    </Td>
+                    <Td>
+                      <Box>
+                        <Text fontWeight="bold">Yuri Paiva</Text>
+                        <Text fontSize="sm" color="gray.300">
+                          yuriqpaiva@gmail.com
+                        </Text>
+                      </Box>
+                    </Td>
+                    {isWideVersion && <Td>04 de Abril, 1999</Td>}
+                  </Tr>
+                </Tbody>
+              </Table>
 
-          <Pagination />
+              <Pagination />
+            </>
+          )}
         </Box>
       </Flex>
     </Box>
