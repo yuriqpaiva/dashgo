@@ -10,7 +10,7 @@
 
 ## 💡 Introduction
 
-Dashboard web application
+Dashboard template web application
 
 - Subscription graphics
 - Table of users
